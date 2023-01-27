@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "apvee-spfx-power-apps-client-side-solution",
+    "id": "95dc54ce-d539-424e-8fce-a1b9ba7cc916",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.16.1"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "apvee-spfx-power-apps description"
+      },
+      "longDescription": {
+        "default": "apvee-spfx-power-apps description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "apvee-spfx-power-apps Feature",
+        "description": "The feature that activates elements of the apvee-spfx-power-apps solution.",
+        "id": "b53c8b40-111c-4e0e-9ac6-f153904adafd",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/apvee-spfx-power-apps.sppkg"
+  }
+}

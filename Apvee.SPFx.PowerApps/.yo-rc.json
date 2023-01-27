@@ -1,0 +1,21 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "nodeVersion": "16.18.0",
+    "sdksVersions": {
+      "@microsoft/microsoft-graph-client": "3.0.2",
+      "@microsoft/teams-js": "2.4.1"
+    },
+    "version": "1.16.1",
+    "libraryName": "apvee-spfx-power-apps",
+    "libraryId": "95dc54ce-d539-424e-8fce-a1b9ba7cc916",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "apvee-spfx-power-apps",
+    "solutionShortDescription": "apvee-spfx-power-apps description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "webpart"
+  }
+}
