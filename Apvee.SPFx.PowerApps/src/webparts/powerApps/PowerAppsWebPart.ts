@@ -22,6 +22,7 @@ export interface IPowerAppsWebPartProps {
   appWebLink: string;
   params: IParams[];
   passingThemeColorsAsParams: boolean;
+  themeColorsParamPrefix: string;
   showBorder: boolean;
   useCustomHeight: boolean;
   customHeight: number;
@@ -48,6 +49,7 @@ export default class PowerAppsWebPart extends BaseClientSideWebPart<IPowerAppsWe
         params: this.properties.params,
         locale: locale,
         passingThemeColorsAsParams: this.properties.passingThemeColorsAsParams,
+        themeColorsParamPrefix: this.properties.themeColorsParamPrefix,
 
         useDynamicProp: this.properties.useDynamicProp,
         dynamicPropName: this.properties.dynamicPropName,
@@ -108,10 +110,10 @@ export default class PowerAppsWebPart extends BaseClientSideWebPart<IPowerAppsWe
                   label: strings.AppWebLinkLabel
                 }),
                 PropertyPaneToggle('useCustomHeight', {
-                  label: "useCustomHeight"
+                  label: strings.UseCustomHeightLabel
                 }),
                 PropertyFieldSpinButton('customHeight', {
-                  label: 'customHeight',
+                  label: strings.CustomHeightLabel,
                   disabled: !this.properties.useCustomHeight,
                   initialValue: this.properties.customHeight,
                   onPropertyChange: this.onPropertyPaneFieldChanged,
@@ -145,6 +147,10 @@ export default class PowerAppsWebPart extends BaseClientSideWebPart<IPowerAppsWe
               groupFields: [
                 PropertyPaneToggle('passingThemeColorsAsParams', {
                   label: strings.PassingThemeColorsAsParamsLabel,
+                }),
+                PropertyPaneTextField('themeColorsParamPrefix', {
+                  label: strings.ThemeColorsParamPrefixLabel,
+                  disabled: !this.properties.passingThemeColorsAsParams
                 }),
                 PropertyFieldCollectionData("params", {
                   key: "params",

@@ -17,6 +17,7 @@ export interface IPowerAppsProps {
   params: IParams[];
   locale: string;
   passingThemeColorsAsParams: boolean;
+  themeColorsParamPrefix: string;
 
   useDynamicProp: boolean;
   dynamicPropName: string,
@@ -59,7 +60,7 @@ const generateUrl = (props: IPowerAppsProps): string => {
       if (props.passingThemeColorsAsParams) {
         Object.keys(props.theme.palette).forEach((paletteKey: string) => {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          url.searchParams.set(`theme-${paletteKey}`, (props.theme.palette as any)[paletteKey]);
+          url.searchParams.set(`${props.themeColorsParamPrefix}${paletteKey}`, (props.theme.palette as any)[paletteKey]);
         });
       }
 
@@ -154,7 +155,7 @@ export default function PowerApps(props: IPowerAppsProps): JSX.Element {
           hideButton={props.displayMode === DisplayMode.Read}
           theme={props.theme} />
       }
-      {isConfigured && props.useCustomHeight == false &&
+      {isConfigured && props.useCustomHeight === false &&
         <AspectRatio ratio={ratio}>
           <iframe
             src={appUrl}
@@ -166,7 +167,7 @@ export default function PowerApps(props: IPowerAppsProps): JSX.Element {
           />
         </AspectRatio>
       }
-      {isConfigured && props.useCustomHeight == true &&
+      {isConfigured && props.useCustomHeight === true &&
         <iframe
           src={appUrl}
           width="100%"

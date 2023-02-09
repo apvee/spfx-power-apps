@@ -6,6 +6,7 @@ declare interface IPowerAppsWebPartStrings {
   AspectRatioLabel: string;
   ParametersGroupName: string;
   PassingThemeColorsAsParamsLabel: string;
+  ThemeColorsParamPrefixLabel: string;
   ParamsLabel: string;
   ParamsPanelHeader: string;
   ParamsManageBtnLabel: string;
@@ -18,6 +19,8 @@ declare interface IPowerAppsWebPartStrings {
   PlaceholderIconText: string;
   PlaceholderDescription: string;
   PlaceholderButtonLabel: string;
+  UseCustomHeightLabel: string;
+  CustomHeightLabel: string;
 }
 
 declare module 'PowerAppsWebPartStrings' {
