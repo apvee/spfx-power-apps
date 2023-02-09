@@ -1,24 +1,21 @@
-import * as React from 'react';
-import * as ReactDom from 'react-dom';
+import { IReadonlyTheme } from '@microsoft/sp-component-base';
 import { Version } from '@microsoft/sp-core-library';
 import {
   IPropertyPaneConfiguration,
-  PropertyPaneDropdown,
-  PropertyPaneTextField,
-  PropertyPaneToggle,
-  PropertyPaneDynamicFieldSet,
-  PropertyPaneDynamicField
+  PropertyPaneDropdown, PropertyPaneDynamicField, PropertyPaneDynamicFieldSet, PropertyPaneTextField,
+  PropertyPaneToggle
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart, IWebPartPropertiesMetadata } from '@microsoft/sp-webpart-base';
-import { IReadonlyTheme } from '@microsoft/sp-component-base';
+import * as React from 'react';
+import * as ReactDom from 'react-dom';
 
-import * as strings from 'PowerAppsWebPartStrings';
-import { IParams } from '../../models/IParams';
-import { AspectRatio } from '../../models/AspectRatio';
-import PowerApps, { IPowerAppsProps } from './components/PowerApps';
-import { PropertyFieldCollectionData, CustomCollectionFieldType } from '@pnp/spfx-property-controls/lib/PropertyFieldCollectionData';
 import { DynamicProperty } from '@microsoft/sp-component-base';
+import { CustomCollectionFieldType, PropertyFieldCollectionData } from '@pnp/spfx-property-controls/lib/PropertyFieldCollectionData';
 import { PropertyFieldSpinButton } from '@pnp/spfx-property-controls/lib/PropertyFieldSpinButton';
+import * as strings from 'PowerAppsWebPartStrings';
+import PowerApps, { IPowerAppsProps } from '../../components/PowerApps';
+import { AspectRatio } from '../../models/AspectRatio';
+import { IParams } from '../../models/IParams';
 
 export interface IPowerAppsWebPartProps {
   title: string;
