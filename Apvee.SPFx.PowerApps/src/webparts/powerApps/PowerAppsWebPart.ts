@@ -18,6 +18,7 @@ import { AspectRatio } from '../../models/AspectRatio';
 import PowerApps, { IPowerAppsProps } from './components/PowerApps';
 import { PropertyFieldCollectionData, CustomCollectionFieldType } from '@pnp/spfx-property-controls/lib/PropertyFieldCollectionData';
 import { DynamicProperty } from '@microsoft/sp-component-base';
+import { PropertyFieldSpinButton } from '@pnp/spfx-property-controls/lib/PropertyFieldSpinButton';
 
 export interface IPowerAppsWebPartProps {
   title: string;
@@ -25,6 +26,8 @@ export interface IPowerAppsWebPartProps {
   params: IParams[];
   passingThemeColorsAsParams: boolean;
   showBorder: boolean;
+  useCustomHeight: boolean;
+  customHeight: number;
   aspectRatio: AspectRatio;
   useDynamicProp: boolean;
   dynamicPropName: string;
@@ -55,6 +58,9 @@ export default class PowerAppsWebPart extends BaseClientSideWebPart<IPowerAppsWe
 
         theme: this.currentTheme,
         showBorder: this.properties.showBorder,
+
+        useCustomHeight: this.properties.useCustomHeight,
+        customHeight: this.properties.customHeight,
         aspectRatio: this.properties.aspectRatio,
 
         displayMode: this.displayMode,
@@ -104,8 +110,22 @@ export default class PowerAppsWebPart extends BaseClientSideWebPart<IPowerAppsWe
                 PropertyPaneTextField('appWebLink', {
                   label: strings.AppWebLinkLabel
                 }),
+                PropertyPaneToggle('useCustomHeight', {
+                  label: "useCustomHeight"
+                }),
+                PropertyFieldSpinButton('customHeight', {
+                  label: 'customHeight',
+                  disabled: !this.properties.useCustomHeight,
+                  initialValue: this.properties.customHeight,
+                  onPropertyChange: this.onPropertyPaneFieldChanged,
+                  properties: this.properties,
+                  suffix: 'px',
+                  min: 0,
+                  key: 'customHeightFieldId'
+                }),
                 PropertyPaneDropdown('aspectRatio', {
                   label: strings.AspectRatioLabel,
+                  disabled: this.properties.useCustomHeight,
                   options: [
                     { key: '16:9', text: '16:9' },
                     { key: '3:2', text: '3:2' },

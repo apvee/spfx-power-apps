@@ -24,6 +24,9 @@ export interface IPowerAppsProps {
 
   theme: IReadonlyTheme;
   showBorder: boolean;
+
+  useCustomHeight: boolean;
+  customHeight: number;
   aspectRatio: AspectRatioType;
 
   displayMode: DisplayMode;
@@ -151,7 +154,7 @@ export default function PowerApps(props: IPowerAppsProps): JSX.Element {
           hideButton={props.displayMode === DisplayMode.Read}
           theme={props.theme} />
       }
-      {isConfigured &&
+      {isConfigured && props.useCustomHeight == false &&
         <AspectRatio ratio={ratio}>
           <iframe
             src={appUrl}
@@ -162,6 +165,18 @@ export default function PowerApps(props: IPowerAppsProps): JSX.Element {
             style={generateBorder(props.showBorder, props.theme)}
           />
         </AspectRatio>
+      }
+      {isConfigured && props.useCustomHeight == true &&
+        <iframe
+          src={appUrl}
+          width="100%"
+          height={`${props.customHeight}px`}
+          aria-hidden="true"
+          allow="geolocation *; microphone *; camera *; fullscreen *;"
+          sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-forms allow-orientation-lock allow-downloads"
+          frameBorder={0}
+          style={generateBorder(props.showBorder, props.theme)}
+        />
       }
     </Stack>
   );
