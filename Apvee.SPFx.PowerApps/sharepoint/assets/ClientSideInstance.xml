@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+    <ClientSideComponentInstance
+        Title="PowerApps"
+        Location="ClientSideExtension.ApplicationCustomizer"
+        ComponentId="38982659-fda9-4eb2-8d2d-464d84f179b9"
+        Properties="{&quot;testMessage&quot;:&quot;Test message&quot;}">
+    </ClientSideComponentInstance>
+</Elements>

@@ -8,8 +8,8 @@ import { WebPartTitle } from "@pnp/spfx-controls-react/lib/WebPartTitle";
 import { Stack } from 'office-ui-fabric-react';
 import * as strings from 'PowerAppsWebPartStrings';
 import * as React from 'react';
-import { AspectRatio as AspectRatioType } from '../models/AspectRatio';
-import { IParams } from '../models/IParams';
+import { AspectRatio as AspectRatioType } from '../../../models/AspectRatio';
+import { IParams } from '../../../models/IParams';
 
 export interface IPowerAppsProps {
   title: string;

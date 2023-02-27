@@ -13,7 +13,7 @@ import { DynamicProperty } from '@microsoft/sp-component-base';
 import { CustomCollectionFieldType, PropertyFieldCollectionData } from '@pnp/spfx-property-controls/lib/PropertyFieldCollectionData';
 import { PropertyFieldSpinButton } from '@pnp/spfx-property-controls/lib/PropertyFieldSpinButton';
 import * as strings from 'PowerAppsWebPartStrings';
-import PowerApps, { IPowerAppsProps } from '../../components/PowerApps';
+import PowerApps, { IPowerAppsProps } from './components/PowerApps';
 import { AspectRatio } from '../../models/AspectRatio';
 import { IParams } from '../../models/IParams';
 
@@ -69,8 +69,6 @@ export default class PowerAppsWebPart extends BaseClientSideWebPart<IPowerAppsWe
     );
 
     ReactDom.render(element, this.domElement);
-
-    console.log(this.currentTheme);
   }
 
   protected onThemeChanged(currentTheme: IReadonlyTheme | undefined): void {

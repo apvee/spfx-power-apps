@@ -30,7 +30,13 @@
         "title": "apvee-spfx-power-apps Feature",
         "description": "The feature that activates elements of the apvee-spfx-power-apps solution.",
         "id": "b53c8b40-111c-4e0e-9ac6-f153904adafd",
-        "version": "1.0.0.0"
+        "version": "1.0.0.0",
+        "assets": {
+          "elementManifests": [
+            "elements.xml",
+            "ClientSideInstance.xml"
+          ]
+        }
       }
     ]
   },
