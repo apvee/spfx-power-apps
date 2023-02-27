@@ -100,8 +100,10 @@ export default class PowerAppsWebPart extends BaseClientSideWebPart<IPowerAppsWe
           header: {
             description: strings.PropertyPaneDescription
           },
+          displayGroupsAsAccordion: true,
           groups: [
             {
+              isCollapsed: false,
               groupName: strings.BasicGroupName,
               groupFields: [
                 PropertyPaneTextField('appWebLink', {
@@ -141,6 +143,7 @@ export default class PowerAppsWebPart extends BaseClientSideWebPart<IPowerAppsWe
               ]
             },
             {
+              isCollapsed: true,
               groupName: strings.ParametersGroupName,
               groupFields: [
                 PropertyPaneToggle('passingThemeColorsAsParams', {
