@@ -15,12 +15,12 @@ import { PropertyFieldSpinButton } from '@pnp/spfx-property-controls/lib/Propert
 import * as strings from 'PowerAppsWebPartStrings';
 import PowerApps, { IPowerAppsProps } from './components/PowerApps';
 import { AspectRatio } from '../../models/AspectRatio';
-import { IParams } from '../../models/IParams';
+import { IParam } from '../../models/IParam';
 
 export interface IPowerAppsWebPartProps {
   title: string;
   appWebLink: string;
-  params: IParams[];
+  params: IParam[];
   passingThemeColorsAsParams: boolean;
   themeColorsParamPrefix: string;
   showBorder: boolean;
@@ -30,6 +30,13 @@ export interface IPowerAppsWebPartProps {
   useDynamicProp: boolean;
   dynamicPropName: string;
   dynamicProp: DynamicProperty<string>;
+  // show as panel
+  showAsPanel: boolean;
+  buttonOpenPanelText: string;
+  buttonOpenPanelPosition: "start" | "center" | "end";
+  panelTitle: string;
+  panelWidth: "small" | "medium" | "large" | "xlarge" | "full";
+  // ********* SPFx *********
 }
 
 export default class PowerAppsWebPart extends BaseClientSideWebPart<IPowerAppsWebPartProps> {
@@ -61,6 +68,14 @@ export default class PowerAppsWebPart extends BaseClientSideWebPart<IPowerAppsWe
         useCustomHeight: this.properties.useCustomHeight,
         customHeight: this.properties.customHeight,
         aspectRatio: this.properties.aspectRatio,
+
+        // show as panel
+        showAsPanel: true, //this.properties.showAsPanel,
+        buttonOpenPanelText: "Open App", //this.properties.buttonOpenPanelText,
+        buttonOpenPanelPosition: "center", //this.properties.buttonOpenPanelPosition,
+        panelTitle: "App as Panel", //this.properties.panelTitle,
+        panelWidth: "full", //this.properties.panelWidth,
+        // *********
 
         displayMode: this.displayMode,
         updateTitle: (value: string) => { this.properties.title = value },

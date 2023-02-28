@@ -9,21 +9,12 @@
           "manifest": "./src/webparts/powerApps/PowerAppsWebPart.manifest.json"
         }
       ]
-    },
-    "power-apps-application-customizer": {
-      "components": [
-        {
-          "entrypoint": "./lib/extensions/powerApps/PowerAppsApplicationCustomizer.js",
-          "manifest": "./src/extensions/powerApps/PowerAppsApplicationCustomizer.manifest.json"
-        }
-      ]
     }
   },
   "externals": {},
   "localizedResources": {
     "PowerAppsWebPartStrings": "lib/webparts/powerApps/loc/{locale}.js",
     "PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js",
-    "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js",
-    "PowerAppsApplicationCustomizerStrings": "lib/extensions/powerApps/loc/{locale}.js"
+    "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js"
   }
 }

@@ -1,4 +1,4 @@
-export interface IParams {
+export interface IParam {
     name: string;
     value: string;
 }

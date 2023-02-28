@@ -1,20 +1,22 @@
 
-import { TinyColor } from '@ctrl/tinycolor';
 import { AspectRatio } from '@mantine/core';
+import { useToggle } from '@mantine/hooks';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
 import { DisplayMode } from '@microsoft/sp-core-library';
 import { Placeholder } from "@pnp/spfx-controls-react/lib/Placeholder";
 import { WebPartTitle } from "@pnp/spfx-controls-react/lib/WebPartTitle";
-import { Stack } from 'office-ui-fabric-react';
+import { DefaultButton, Stack } from 'office-ui-fabric-react';
 import * as strings from 'PowerAppsWebPartStrings';
 import * as React from 'react';
+import PowerAppsPanel from '../../../components/PowerAppsPanel';
+import PowerAppsViewer, { checkMandatoryProps } from '../../../components/PowerAppsViewer';
 import { AspectRatio as AspectRatioType } from '../../../models/AspectRatio';
-import { IParams } from '../../../models/IParams';
+import { IParam } from '../../../models/IParam';
 
 export interface IPowerAppsProps {
   title: string;
   appWebLink: string;
-  params: IParams[];
+  params: IParam[];
   locale: string;
   passingThemeColorsAsParams: boolean;
   themeColorsParamPrefix: string;
@@ -30,78 +32,24 @@ export interface IPowerAppsProps {
   customHeight: number;
   aspectRatio: AspectRatioType;
 
+  // show as panel
+  showAsPanel: boolean;
+  buttonOpenPanelText: string;
+  buttonOpenPanelPosition: "start" | "center" | "end";
+  panelTitle: string;
+  panelWidth: "small" | "medium" | "large" | "xlarge" | "full";
+  // *********
+
   displayMode: DisplayMode;
   updateTitle: (value: string) => void;
   openPropertyPane: () => void;
 }
 
-const generateUrl = (props: IPowerAppsProps): string => {
-  if (props.appWebLink) {
-    try {
-      const url = new URL(props.appWebLink);
-
-      const screenColorRgb = new TinyColor(props.theme.semanticColors.bodyBackground).toRgb();
-      url.searchParams.set('screenColor', `rgba(${screenColorRgb.r},${screenColorRgb.g},${screenColorRgb.b},1)`);
-      url.searchParams.set('source', 'Apvee-PowerAppsWebPart');
-      url.searchParams.set('locale', props.locale);
-
-      if (props.useDynamicProp) {
-        url.searchParams.set(props.dynamicPropName, props.dynamicProp);
-      }
-
-      if (props.params) {
-        props.params.forEach(param => {
-          if (param.value.trim() !== '') {
-            url.searchParams.set(param.name, param.value);
-          }
-        });
-      }
-
-      if (props.passingThemeColorsAsParams) {
-        Object.keys(props.theme.palette).forEach((paletteKey: string) => {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          url.searchParams.set(`${props.themeColorsParamPrefix}${paletteKey}`, (props.theme.palette as any)[paletteKey]);
-        });
-      }
-
-      return url.toString();
-    } catch (e) {
-      return null;
-    }
-  } else {
-    return null;
-  }
-};
-
-const generateBorder = (showBorder: boolean, theme: IReadonlyTheme): React.CSSProperties => {
-  if (showBorder)
-    return {
-      border: `1px solid ${theme.semanticColors.bodyFrameDivider}`
-    }
-  else
-    return {};
-}
-
-const checkMandatoryProps = (props: IPowerAppsProps): boolean => {
-  let result = props.appWebLink && props.appWebLink !== '';
-
-  if (result) {
-    try {
-      const appUrl = new URL(props.appWebLink);
-      result = appUrl.hostname.toLowerCase() === "apps.powerapps.com" || appUrl.hostname.toLowerCase() === "apps.gov.powerapps.us";
-    } catch (e) {
-      result = false;
-    }
-  }
-
-  return result;
-}
-
 export default function PowerApps(props: IPowerAppsProps): JSX.Element {
-
   const [ratio, setRatio] = React.useState(16 / 9);
-  const appUrl = generateUrl(props);
   const isConfigured = checkMandatoryProps(props);
+  const params = React.useState<IParam[]>([]);
+  const [isPanelOpen, setIsPanelOpen] = useToggle();
 
   React.useEffect(() => {
     switch (props.aspectRatio) {
@@ -138,6 +86,70 @@ export default function PowerApps(props: IPowerAppsProps): JSX.Element {
     }
   }, [props.aspectRatio]);
 
+  React.useEffect(() => {
+    params.push(...[props.params]);
+    if (props.useDynamicProp) {
+      props.params.push({ name: props.dynamicPropName, value: props.dynamicProp });
+    }
+  }, [props.params, props.useDynamicProp, props.dynamicProp]);
+
+  let elementToRender: JSX.Element;
+  if (!isConfigured) {
+    elementToRender =
+      <Placeholder
+        iconName='PowerApps'
+        iconText={strings.PlaceholderIconText}
+        description={strings.PlaceholderDescription}
+        buttonLabel={strings.PlaceholderButtonLabel}
+        onConfigure={props.openPropertyPane}
+        hideButton={props.displayMode === DisplayMode.Read}
+        theme={props.theme} />
+  } else {
+
+    if (props.showAsPanel) {
+      elementToRender =
+        <>
+          <Stack horizontalAlign={props.buttonOpenPanelPosition}>
+            <DefaultButton text={props.buttonOpenPanelText} onClick={() => setIsPanelOpen(true)} />
+          </Stack>
+          {isPanelOpen && <PowerAppsPanel
+            panelTitle={props.panelTitle}
+            appWebLink={props.appWebLink}
+            params={props.params}
+            locale={props.locale}
+            passingThemeColorsAsParams={props.passingThemeColorsAsParams}
+            themeColorsParamPrefix={props.themeColorsParamPrefix}
+            theme={props.theme}
+            onDismiss={() => setIsPanelOpen(false)} />}
+        </>;
+    } else {
+      if (props.useCustomHeight === false) {
+        elementToRender =
+          <AspectRatio ratio={ratio}>
+            <PowerAppsViewer
+              appWebLink={props.appWebLink}
+              params={props.params}
+              locale={props.locale}
+              passingThemeColorsAsParams={props.passingThemeColorsAsParams}
+              themeColorsParamPrefix={props.themeColorsParamPrefix}
+              theme={props.theme} />
+          </AspectRatio>;
+      } else {
+        elementToRender =
+          <PowerAppsViewer
+            appWebLink={props.appWebLink}
+            params={props.params}
+            locale={props.locale}
+            passingThemeColorsAsParams={props.passingThemeColorsAsParams}
+            themeColorsParamPrefix={props.themeColorsParamPrefix}
+            theme={props.theme}
+            width="100%"
+            height={`${props.customHeight}px`}
+          />;
+      }
+    }
+  }
+
   return (
     <Stack>
       <WebPartTitle
@@ -145,40 +157,7 @@ export default function PowerApps(props: IPowerAppsProps): JSX.Element {
         title={props.title}
         updateProperty={props.updateTitle}
         themeVariant={props.theme} />
-      {!isConfigured &&
-        <Placeholder
-          iconName='PowerApps'
-          iconText={strings.PlaceholderIconText}
-          description={strings.PlaceholderDescription}
-          buttonLabel={strings.PlaceholderButtonLabel}
-          onConfigure={props.openPropertyPane}
-          hideButton={props.displayMode === DisplayMode.Read}
-          theme={props.theme} />
-      }
-      {isConfigured && props.useCustomHeight === false &&
-        <AspectRatio ratio={ratio}>
-          <iframe
-            src={appUrl}
-            aria-hidden="true"
-            allow="geolocation *; microphone *; camera *; fullscreen *;"
-            sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-forms allow-orientation-lock allow-downloads"
-            frameBorder={0}
-            style={generateBorder(props.showBorder, props.theme)}
-          />
-        </AspectRatio>
-      }
-      {isConfigured && props.useCustomHeight === true &&
-        <iframe
-          src={appUrl}
-          width="100%"
-          height={`${props.customHeight}px`}
-          aria-hidden="true"
-          allow="geolocation *; microphone *; camera *; fullscreen *;"
-          sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-forms allow-orientation-lock allow-downloads"
-          frameBorder={0}
-          style={generateBorder(props.showBorder, props.theme)}
-        />
-      }
+      {elementToRender}
     </Stack>
   );
 }

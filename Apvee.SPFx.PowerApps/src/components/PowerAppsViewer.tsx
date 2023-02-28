@@ -2,15 +2,17 @@
 import { TinyColor } from '@ctrl/tinycolor';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
 import * as React from 'react';
-import { IParams } from '../models/IParams';
+import { IParam } from '../models/IParam';
 
 export interface IPowerAppsProps {
   appWebLink: string;
-  params: IParams[];
+  params: IParam[];
   locale: string;
   passingThemeColorsAsParams: boolean;
   themeColorsParamPrefix: string;
   theme: IReadonlyTheme;
+  width?: string | number;
+  height?: string | number;
 }
 
 const generateUrl = (props: IPowerAppsProps): string => {
@@ -47,7 +49,7 @@ const generateUrl = (props: IPowerAppsProps): string => {
   }
 };
 
-const checkMandatoryProps = (props: IPowerAppsProps): boolean => {
+export const checkMandatoryProps = (props: IPowerAppsProps): boolean => {
   let result = props.appWebLink && props.appWebLink !== '';
 
   if (result) {
@@ -65,17 +67,16 @@ const checkMandatoryProps = (props: IPowerAppsProps): boolean => {
 export default function PowerAppsViewer(props: IPowerAppsProps): JSX.Element {
 
   const appUrl = generateUrl(props);
-  const isConfigured = checkMandatoryProps(props);
 
   return (
-    isConfigured ?
-      <iframe
-        src={appUrl}
-        aria-hidden="true"
-        allow="geolocation *; microphone *; camera *; fullscreen *;"
-        sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-forms allow-orientation-lock allow-downloads"
-        frameBorder={0}
-      />
-      : <></>
+    <iframe
+      src={appUrl}
+      aria-hidden="true"
+      allow="geolocation *; microphone *; camera *; fullscreen *;"
+      sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-forms allow-orientation-lock allow-downloads"
+      frameBorder={0}
+      width={props.width}
+      height={props.height}
+    />
   );
 }
