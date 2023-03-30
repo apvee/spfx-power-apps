@@ -25,7 +25,13 @@
       "aspectRatio": "16:9",
       "useDynamicProp": false,
       "dynamicPropName": "dynamicProp",
-      "customHeight": 400
+      "customHeight": 400,
+
+      "showAsPanel": false,
+      "buttonOpenPanelText": "Open App",
+      "buttonOpenPanelPosition": "start",
+      "panelTitle": "App Title",
+      "panelWidth": "medium"
     }
   }]
 }

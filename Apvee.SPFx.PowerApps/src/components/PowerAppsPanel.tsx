@@ -7,6 +7,7 @@ import { IParam } from '../models/IParam';
 export interface IPowerAppsPanelProps {
     panelTitle: string;
     appWebLink: string;
+    width: "small" | "medium" | "large" | "xlarge" | "full";
     params: IParam[];
     locale: string;
     passingThemeColorsAsParams: boolean;
@@ -14,6 +15,22 @@ export interface IPowerAppsPanelProps {
     theme: IReadonlyTheme;
     onDismiss: () => void;
 }
+
+const getPanelWidth = (width: IPowerAppsPanelProps["width"]): PanelType => {
+    switch (width) {
+        case "small":
+            return PanelType.smallFixedFar;
+        case "medium":
+            return PanelType.medium;
+        case "large":
+            return PanelType.large;
+        case "xlarge":
+            return PanelType.extraLarge;
+        case "full":
+            return PanelType.smallFluid;
+    }
+};
+
 export default function PowerAppsPanel(props: IPowerAppsPanelProps): JSX.Element {
     return (
         <Panel
@@ -31,7 +48,7 @@ export default function PowerAppsPanel(props: IPowerAppsPanelProps): JSX.Element
             }}
             isFooterAtBottom={true}
             isOpen={true}
-            type={PanelType.medium}
+            type={getPanelWidth(props.width)}
             onDismiss={() => props.onDismiss()}
             headerText={props.panelTitle}
             closeButtonAriaLabel="Close" >

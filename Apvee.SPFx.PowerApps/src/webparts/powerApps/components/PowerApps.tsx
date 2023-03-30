@@ -32,13 +32,11 @@ export interface IPowerAppsProps {
   customHeight: number;
   aspectRatio: AspectRatioType;
 
-  // show as panel
   showAsPanel: boolean;
   buttonOpenPanelText: string;
   buttonOpenPanelPosition: "start" | "center" | "end";
   panelTitle: string;
   panelWidth: "small" | "medium" | "large" | "xlarge" | "full";
-  // *********
 
   displayMode: DisplayMode;
   updateTitle: (value: string) => void;
@@ -115,6 +113,7 @@ export default function PowerApps(props: IPowerAppsProps): JSX.Element {
           {isPanelOpen && <PowerAppsPanel
             panelTitle={props.panelTitle}
             appWebLink={props.appWebLink}
+            width={props.panelWidth}
             params={props.params}
             locale={props.locale}
             passingThemeColorsAsParams={props.passingThemeColorsAsParams}

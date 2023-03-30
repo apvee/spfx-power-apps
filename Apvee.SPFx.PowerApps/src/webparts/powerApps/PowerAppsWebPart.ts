@@ -69,13 +69,11 @@ export default class PowerAppsWebPart extends BaseClientSideWebPart<IPowerAppsWe
         customHeight: this.properties.customHeight,
         aspectRatio: this.properties.aspectRatio,
 
-        // show as panel
-        showAsPanel: true, //this.properties.showAsPanel,
-        buttonOpenPanelText: "Open App", //this.properties.buttonOpenPanelText,
-        buttonOpenPanelPosition: "center", //this.properties.buttonOpenPanelPosition,
-        panelTitle: "App as Panel", //this.properties.panelTitle,
-        panelWidth: "full", //this.properties.panelWidth,
-        // *********
+        showAsPanel: this.properties.showAsPanel,
+        buttonOpenPanelText: this.properties.buttonOpenPanelText,
+        buttonOpenPanelPosition: this.properties.buttonOpenPanelPosition,
+        panelTitle: this.properties.panelTitle,
+        panelWidth: this.properties.panelWidth,
 
         displayMode: this.displayMode,
         updateTitle: (value: string) => { this.properties.title = value },
@@ -154,7 +152,34 @@ export default class PowerAppsWebPart extends BaseClientSideWebPart<IPowerAppsWe
                 }),
                 PropertyPaneToggle('showBorder', {
                   label: strings.ShowBorderLabel
-                })
+                }),
+                PropertyPaneToggle('showAsPanel', {
+                  label: "showAsPanel"
+                }),
+                this.properties.showAsPanel === true && PropertyPaneTextField('buttonOpenPanelText', {
+                  label: "buttonOpenPanelText"
+                }),
+                this.properties.showAsPanel === true && PropertyPaneDropdown('buttonOpenPanelPosition', {
+                  label: "buttonOpenPanelPosition",
+                  options: [
+                    { key: 'start', text: 'Start' },
+                    { key: 'center', text: 'Center' },
+                    { key: 'end', text: 'End' }
+                  ]
+                }),
+                this.properties.showAsPanel === true && PropertyPaneTextField('panelTitle', {
+                  label: "panelTitle"
+                }),
+                this.properties.showAsPanel === true && PropertyPaneDropdown('panelWidth', {
+                  label: "panelWidth",
+                  options: [
+                    { key: 'small', text: 'small' },
+                    { key: 'medium', text: 'medium' },
+                    { key: 'large', text: 'large' },
+                    { key: 'xlarge', text: 'xlarge' },
+                    { key: 'full', text: 'full' }
+                  ]
+                }),
               ]
             },
             {
