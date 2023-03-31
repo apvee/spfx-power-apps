@@ -9,7 +9,7 @@ import { DefaultButton, Stack } from 'office-ui-fabric-react';
 import * as strings from 'PowerAppsWebPartStrings';
 import * as React from 'react';
 import PowerAppsPanel from '../../../components/PowerAppsPanel';
-import PowerAppsViewer, { checkMandatoryProps } from '../../../components/PowerAppsViewer';
+import PowerAppsViewer, { validateAppUrl } from '../../../components/PowerAppsViewer';
 import { AspectRatio as AspectRatioType } from '../../../models/AspectRatio';
 import { IParam } from '../../../models/IParam';
 
@@ -45,7 +45,7 @@ export interface IPowerAppsProps {
 
 export default function PowerApps(props: IPowerAppsProps): JSX.Element {
   const [ratio, setRatio] = React.useState(16 / 9);
-  const isConfigured = checkMandatoryProps(props);
+  const isConfigured = validateAppUrl(props.appWebLink);
   const params = React.useState<IParam[]>([]);
   const [isPanelOpen, setIsPanelOpen] = useToggle();
 
@@ -118,6 +118,7 @@ export default function PowerApps(props: IPowerAppsProps): JSX.Element {
             locale={props.locale}
             passingThemeColorsAsParams={props.passingThemeColorsAsParams}
             themeColorsParamPrefix={props.themeColorsParamPrefix}
+            showBorder={props.showBorder}
             theme={props.theme}
             onDismiss={() => setIsPanelOpen(false)} />}
         </>;
@@ -126,21 +127,23 @@ export default function PowerApps(props: IPowerAppsProps): JSX.Element {
         elementToRender =
           <AspectRatio ratio={ratio}>
             <PowerAppsViewer
-              appWebLink={props.appWebLink}
+              appUrl={props.appWebLink}
               params={props.params}
               locale={props.locale}
               passingThemeColorsAsParams={props.passingThemeColorsAsParams}
               themeColorsParamPrefix={props.themeColorsParamPrefix}
+              showBorder={props.showBorder}
               theme={props.theme} />
           </AspectRatio>;
       } else {
         elementToRender =
           <PowerAppsViewer
-            appWebLink={props.appWebLink}
+            appUrl={props.appWebLink}
             params={props.params}
             locale={props.locale}
             passingThemeColorsAsParams={props.passingThemeColorsAsParams}
             themeColorsParamPrefix={props.themeColorsParamPrefix}
+            showBorder={props.showBorder}
             theme={props.theme}
             width="100%"
             height={`${props.customHeight}px`}

@@ -30,13 +30,11 @@ export interface IPowerAppsWebPartProps {
   useDynamicProp: boolean;
   dynamicPropName: string;
   dynamicProp: DynamicProperty<string>;
-  // show as panel
   showAsPanel: boolean;
   buttonOpenPanelText: string;
   buttonOpenPanelPosition: "start" | "center" | "end";
   panelTitle: string;
   panelWidth: "small" | "medium" | "large" | "xlarge" | "full";
-  // ********* SPFx *********
 }
 
 export default class PowerAppsWebPart extends BaseClientSideWebPart<IPowerAppsWebPartProps> {
@@ -106,6 +104,10 @@ export default class PowerAppsWebPart extends BaseClientSideWebPart<IPowerAppsWe
     };
   }
 
+  protected get disableReactivePropertyChanges(): boolean {
+    return true;
+  }
+
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return {
       pages: [
@@ -154,30 +156,30 @@ export default class PowerAppsWebPart extends BaseClientSideWebPart<IPowerAppsWe
                   label: strings.ShowBorderLabel
                 }),
                 PropertyPaneToggle('showAsPanel', {
-                  label: "showAsPanel"
+                  label: strings.ShowAsPanelLabel
                 }),
                 this.properties.showAsPanel === true && PropertyPaneTextField('buttonOpenPanelText', {
-                  label: "buttonOpenPanelText"
+                  label: strings.ButtonOpenPanelTextLabel
                 }),
                 this.properties.showAsPanel === true && PropertyPaneDropdown('buttonOpenPanelPosition', {
-                  label: "buttonOpenPanelPosition",
+                  label: strings.ButtonOpenPanelPositionLabel,
                   options: [
-                    { key: 'start', text: 'Start' },
-                    { key: 'center', text: 'Center' },
-                    { key: 'end', text: 'End' }
+                    { key: 'start', text: strings.StartLabel },
+                    { key: 'center', text: strings.CenterLabel },
+                    { key: 'end', text: strings.EndLabel }
                   ]
                 }),
                 this.properties.showAsPanel === true && PropertyPaneTextField('panelTitle', {
-                  label: "panelTitle"
+                  label: strings.PanelTitleLabel
                 }),
                 this.properties.showAsPanel === true && PropertyPaneDropdown('panelWidth', {
-                  label: "panelWidth",
+                  label: strings.PanelWidthLabel,
                   options: [
-                    { key: 'small', text: 'small' },
-                    { key: 'medium', text: 'medium' },
-                    { key: 'large', text: 'large' },
-                    { key: 'xlarge', text: 'xlarge' },
-                    { key: 'full', text: 'full' }
+                    { key: 'small', text: strings.SmallLabel },
+                    { key: 'medium', text: strings.MediumLabel },
+                    { key: 'large', text: strings.LargeLabel },
+                    { key: 'xlarge', text: strings.XlargeLabel },
+                    { key: 'full', text: strings.FullLabel }
                   ]
                 }),
               ]

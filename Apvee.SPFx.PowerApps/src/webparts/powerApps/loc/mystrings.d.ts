@@ -21,6 +21,22 @@ declare interface IPowerAppsWebPartStrings {
   PlaceholderButtonLabel: string;
   UseCustomHeightLabel: string;
   CustomHeightLabel: string;
+
+  ShowAsPanelLabel: string;
+  ButtonOpenPanelTextLabel: string;
+  ButtonOpenPanelPositionLabel: string;
+  PanelTitleLabel: string;
+  PanelWidthLabel: string;
+
+  StartLabel: string;
+  CenterLabel: string;
+  EndLabel: string;
+
+  SmallLabel: string;
+  MediumLabel: string;
+  LargeLabel: string;
+  XlargeLabel: string;
+  FullLabel: string;
 }
 
 declare module 'PowerAppsWebPartStrings' {

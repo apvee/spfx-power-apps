@@ -26,7 +26,6 @@
       "useDynamicProp": false,
       "dynamicPropName": "dynamicProp",
       "customHeight": 400,
-
       "showAsPanel": false,
       "buttonOpenPanelText": "Open App",
       "buttonOpenPanelPosition": "start",

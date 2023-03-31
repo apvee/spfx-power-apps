@@ -5,13 +5,14 @@ import PowerAppsViewer from './PowerAppsViewer';
 import { IParam } from '../models/IParam';
 
 export interface IPowerAppsPanelProps {
-    panelTitle: string;
     appWebLink: string;
+    panelTitle: string;
     width: "small" | "medium" | "large" | "xlarge" | "full";
     params: IParam[];
     locale: string;
     passingThemeColorsAsParams: boolean;
     themeColorsParamPrefix: string;
+    showBorder?: boolean;
     theme: IReadonlyTheme;
     onDismiss: () => void;
 }
@@ -53,11 +54,12 @@ export default function PowerAppsPanel(props: IPowerAppsPanelProps): JSX.Element
             headerText={props.panelTitle}
             closeButtonAriaLabel="Close" >
             <PowerAppsViewer
-                appWebLink={props.appWebLink}
+                appUrl={props.appWebLink}
                 params={props.params}
                 locale={props.locale}
                 passingThemeColorsAsParams={false}
                 themeColorsParamPrefix={props.themeColorsParamPrefix}
+                showBorder={props.showBorder}
                 theme={props.theme}
                 height='100%'
                 width='100%' />
