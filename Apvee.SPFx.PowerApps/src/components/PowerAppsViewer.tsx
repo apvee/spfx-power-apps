@@ -17,12 +17,16 @@ export interface IPowerAppsViewer {
 }
 
 export function validateAppUrl(url: string): boolean {
-  const appUrl = new URL(url);
-  const hostNameAllowList = [
-    "apps.powerapps.com",
-    "apps.gov.powerapps.us",
-  ];
-  return hostNameAllowList.indexOf(appUrl.hostname.toLowerCase()) !== -1 ? true : false;
+  if (url) {
+    const appUrl = new URL(url);
+    const hostNameAllowList = [
+      "apps.powerapps.com",
+      "apps.gov.powerapps.us",
+    ];
+    return hostNameAllowList.indexOf(appUrl.hostname.toLowerCase()) !== -1 ? true : false;
+  } else {
+    return false;
+  }
 }
 
 function generateIFrameUrl(props: IPowerAppsViewer): string {
