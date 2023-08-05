@@ -5,7 +5,7 @@ import { IReadonlyTheme } from '@microsoft/sp-component-base';
 import { DisplayMode } from '@microsoft/sp-core-library';
 import { Placeholder } from "@pnp/spfx-controls-react/lib/Placeholder";
 import { WebPartTitle } from "@pnp/spfx-controls-react/lib/WebPartTitle";
-import { DefaultButton, Stack, ThemeProvider } from 'office-ui-fabric-react';
+import { DefaultButton, Stack } from 'office-ui-fabric-react';
 import * as strings from 'PowerAppsWebPartStrings';
 import * as React from 'react';
 import PowerAppsPanel from '../../../components/PowerAppsPanel';
@@ -153,15 +153,13 @@ export default function PowerApps(props: IPowerAppsProps): JSX.Element {
   }
 
   return (
-    <ThemeProvider theme={props.theme}>
-      <Stack>
-        <WebPartTitle
-          displayMode={props.displayMode}
-          title={props.title}
-          updateProperty={props.updateTitle}
-          themeVariant={props.theme} />
-        {elementToRender}
-      </Stack>
-    </ThemeProvider>
+    <Stack>
+      <WebPartTitle
+        displayMode={props.displayMode}
+        title={props.title}
+        updateProperty={props.updateTitle}
+        themeVariant={props.theme} />
+      {elementToRender}
+    </Stack>
   );
 }
